@@ -7,7 +7,7 @@ import {Toaster} from 'sonner';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "X - Marlon",
+  title: "MarlonX",
   description: "X clon made by @Marlon-WebDeveloper",
   keywords: [
     'developer',
