@@ -5,7 +5,7 @@ import { signup } from '@/app/login/actions';
 import { toast } from 'sonner';
 import { createClient } from '@/utils/supabase/client';
 import Spinner from '@/components/ui/spinner';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 
 const SignUpForm = () => {
 
@@ -14,6 +14,7 @@ const SignUpForm = () => {
       password: "",
       username: ""
     });
+    const router = useRouter()
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -33,12 +34,14 @@ const SignUpForm = () => {
         const { data: profiles } = await supabase.from("profiles").select();
         
         if (profiles?.find((profile) => profile?.username == username)) {
+          setIsLoading(false)
+          setUser({...user, username:""})
           return toast.error("Username already exists");
         } else {
           
           const data = await signup(formData)
-          .then(() => setIsLoading(false))
-          .then(() => redirect("/private"))
+          .then(() => setIsLoading(false));
+          router.push(`/private?email=${user.email}&&username=${user.username}`)
         
         }    
     }

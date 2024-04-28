@@ -5,7 +5,7 @@ import { createClient } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 import { signInWithEmail } from '@/app/login/actions';
 import Spinner from './ui/spinner';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 
 
 const MagicLinkForm = () => {
@@ -14,6 +14,8 @@ const MagicLinkForm = () => {
     email: "",
     username: "",
     });
+
+    const router = useRouter()
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -37,12 +39,15 @@ const MagicLinkForm = () => {
         const { data: profiles } = await supabase.from("profiles").select();
         
         if ( profiles?.find( profile => profile?.username == username)){
+          setIsLoading(false)
+          setUser({...user,username: ""})
           return toast.error("Username already exists")
         } else {
-          
            const data = await signInWithEmail(formData)
-           .then(() => setIsLoading(false))
-           .then(() => redirect("/private"))
+           .then(() => setIsLoading(false));
+           router.push(
+             `/private?email=${user.email}&&username=${user.username}`
+           )
            } 
         }    
       

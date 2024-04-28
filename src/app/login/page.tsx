@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export default function LoginPage() {
   return (
-    <main className="w-screen h-screen flex items-center space-x-4 justify-center text-white pt-6">
+    <main className="w-screen overflow-x-hidden h-screen flex items-center relative space-x-4 justify-center text-white pt-12">
       <div className='flex justify-center lg:visible lg:relative invisible absolute  items-center w-[600px]'>
         <Image
         alt='X logo'
@@ -17,7 +17,7 @@ export default function LoginPage() {
         />
       </div>
       <div>
-        <div className="w-[90%] p-4 flex flex-col space-y-12 max-w-[450px] mx-auto">
+        <div className="w-[90%] p-4 flex flex-col space-y-10 max-w-[450px] mx-auto">
           <div className="w-full mx-auto">
             <Image alt="X logo" src={Logo} width={40} height={40} />
           </div>
