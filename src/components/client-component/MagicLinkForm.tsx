@@ -1,56 +1,58 @@
-"use client"
-import React, { useState } from 'react'
-import { Input } from './ui/input';
-import { createClient } from '@/utils/supabase/client';
-import { toast } from 'sonner';
-import { signInWithEmail } from '@/app/login/actions';
-import Spinner from './ui/spinner';
-import { redirect, useRouter } from 'next/navigation';
+"use client";
+import React, { useState } from "react";
+import { Input } from "../ui/input";
+import { createClient } from "@/utils/supabase/client";
+import { toast } from "sonner";
+import { signInWithEmail } from "@/app/login/actions";
+import Spinner from "../ui/spinner";
+import { useRouter } from "next/navigation";
+
+
 
 
 const MagicLinkForm = () => {
-
-    const [user, setUser] = useState({
+  const [user, setUser] = useState({
     email: "",
     username: "",
-    });
+  });
 
-    const router = useRouter()
+  const router = useRouter();
 
-    const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
-    type UserData = {
+  type UserData = {
     email: string;
     username: string;
-    };
+  };
 
-    type data = {
-      user: {
+  type data = {
+    user: {};
+  };
 
-      }
-    }
+  async function handleSubmit({ email, username }: UserData) {
+    setIsLoading(true);
+    const supabase = createClient();
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("username", username);
+    const { data: profiles } = await supabase.from("profiles").select();
 
-     async function handleSubmit({email ,username}:UserData){
-      setIsLoading(true)
-      const supabase = createClient()
-        const formData = new FormData();
-        formData.append("email", email);
-        formData.append("username", username);
-        const { data: profiles } = await supabase.from("profiles").select();
-        
-        if ( profiles?.find( profile => profile?.username == username)){
-          setIsLoading(false)
-          setUser({...user,username: ""})
-          return toast.error("Username already exists")
-        } else {
-           const data = await signInWithEmail(formData)
-           .then(() => setIsLoading(false));
-           router.push(
-             `/private?email=${user.email}&&username=${user.username}`
-           )
-           } 
-        }    
+    if (profiles?.find((profile) => profile?.username == username)) {
+      setIsLoading(false);
+      setUser({ ...user, username: "" });
+      return toast.error("Username already exists");
+    } else {
       
+        try {
+          await signInWithEmail(formData).then(() => setIsLoading(false));
+          router.push(
+            `/private?email=${user.email}&&username=${user.username}`
+          );
+        } catch (e) {
+          return toast.error(`${e as string} - You can try again in a few minutes`);
+        }
+    }
+  }
 
   return (
     <form
@@ -58,7 +60,6 @@ const MagicLinkForm = () => {
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmit(user);
-        
       }}
     >
       <div>
@@ -114,19 +115,23 @@ const MagicLinkForm = () => {
         />
         <button
           type="submit"
-          disabled={user.email.length < 5 || user.username.length < 4 || isLoading}
-          className={`hover:opacity-85 transition flex justify-center items-center duration-200 w-full rounded-full py-2 font-extrabold text-md bg-gray-400 text-gray-700 text-center ${
+          disabled={
+            user.email.length < 5 || user.username.length < 4 || isLoading
+          }
+          className={`hover:opacity-85 ${
+            isLoading && "hover:opacity-100"
+          } transition flex justify-center items-center duration-200 w-full rounded-full py-2 font-extrabold text-md bg-gray-400 text-gray-700 text-center ${
             user.email.length > 4 &&
             user.email.includes("@") &&
             user.email.includes(".") &&
             "bg-white  text-gray-900"
           }`}
         >
-          {isLoading ? <Spinner/> : 'Siguiente'}
+          {isLoading ? <Spinner /> : "Siguiente"}
         </button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default MagicLinkForm
+export default MagicLinkForm;

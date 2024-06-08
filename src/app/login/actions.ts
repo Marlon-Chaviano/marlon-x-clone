@@ -48,12 +48,7 @@ export async function signup(formData: FormData) {
       }
     }
   });  
-  if (error) {
-    redirect("/error")
-  }
-  console.log(data);
-  
-  return data
+  if ( error ) throw error
 }
 
 export async function signInWithEmail(formData: FormData) {
@@ -74,10 +69,7 @@ export async function signInWithEmail(formData: FormData) {
         
       },
     }); 
-    
-    if (error){
-      redirect("/error")
-    }
-    return data
+    console.log(data);
+    if ( error ) throw error
 }
 

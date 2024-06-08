@@ -10,7 +10,7 @@ const ErrorBtn = () => {
     <button
       className="font-bold animate-pulse flex space-x-2 items-center text-primary text-lg"
       onClick={() => {
-        router.back();
+        router.push("/login")
       }}
     >
       Please try again

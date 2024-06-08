@@ -3,7 +3,7 @@ import Logo from '@/app/x-social-media-white-icon.svg';
 import Image from "next/image";
 import { BsArrowReturnRight, BsCircleFill } from "react-icons/bs";
 import { useRouter } from "next/navigation";
-import ErrorBtn from "@/components/ErrorBtn";
+import ErrorBtn from "@/components/client-component/ErrorBtn";
 export default function ErrorPage() {
   
   return (

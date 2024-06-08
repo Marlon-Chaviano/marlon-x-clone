@@ -1,57 +1,60 @@
-"use client"
-import React, { useState } from 'react'
-import { Input } from './ui/input';
-import { signup } from '@/app/login/actions';
-import { toast } from 'sonner';
-import { createClient } from '@/utils/supabase/client';
-import Spinner from '@/components/ui/spinner';
-import { redirect, useRouter } from 'next/navigation';
+"use client";
+import React, { useState } from "react";
+import { Input } from "../ui/input";
+import { signup } from "@/app/login/actions";
+import { toast } from "sonner";
+import { createClient } from "@/utils/supabase/client";
+import Spinner from "@/components/ui/spinner";
+import { redirect, useRouter } from "next/navigation";
+import { AuthError } from "@supabase/supabase-js";
 
 const SignUpForm = () => {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    username: "",
+  });
+  const router = useRouter();
 
-    const [user, setUser] = useState({
-      email: "",
-      password: "",
-      username: ""
-    });
-    const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false);
 
-    const [isLoading, setIsLoading] = useState(false)
+  type UserData = {
+    email: string;
+    password: string;
+    username: string;
+  };
 
-    type UserData = {
-        email: string,
-        password: string,
-        username: string
+  async function hanldeSubmit({ email, password, username }: UserData) {
+    setIsLoading(true);
+    const supabase = createClient();
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("username", username);
+    const { data: profiles } = await supabase.from("profiles").select();
+
+    if (profiles?.find((profile) => profile?.username == username)) {
+      setIsLoading(false);
+      setUser({ ...user, username: "" });
+      return toast.error("Username already exists");
+    } else {
+      try {
+        await signup(formData).then(() => setIsLoading(false)).then(() => {
+          router.push(`/private?email=${user.email}&&username=${user.username}`);
+        })
+      } catch (error) {
+        setIsLoading(false)
+        return toast.error(`${error as string} - You can try again in a few minutes`)
+      }
     }
-
-    async function hanldeSubmit({email, password, username}:UserData){
-      setIsLoading(true);
-      const supabase = createClient()
-        const formData = new FormData();
-        formData.append("email", email);
-        formData.append("password", password);
-        formData.append("username", username);
-        const { data: profiles } = await supabase.from("profiles").select();
-        
-        if (profiles?.find((profile) => profile?.username == username)) {
-          setIsLoading(false)
-          setUser({...user, username:""})
-          return toast.error("Username already exists");
-        } else {
-          
-          const data = await signup(formData)
-          .then(() => setIsLoading(false));
-          router.push(`/private?email=${user.email}&&username=${user.username}`)
-        
-        }    
-    }
+  }
   return (
     <form
       action="submit"
       className="mt-4 p-6 max-w-[450px] flex flex-col space-y-6"
       onSubmit={(e) => {
         e.preventDefault();
-        const res = hanldeSubmit(user)
+        const res = hanldeSubmit(user);
         console.log(res);
       }}
     >
@@ -120,8 +123,12 @@ const SignUpForm = () => {
         />
         <button
           type="submit"
-          disabled={user.email.length < 5 || user.password.length < 6 || isLoading}
-          className={`hover:opacity-85 transition duration-200 w-full rounded-full flex justify-center items-center py-2 font-extrabold text-md bg-gray-400 text-gray-700 text-center ${
+          disabled={
+            user.email.length < 5 || user.password.length < 6 || isLoading
+          }
+          className={`hover:opacity-85 ${
+            isLoading && "hover:opacity-100"
+          } transition duration-200 w-full rounded-full flex justify-center items-center py-2 font-extrabold text-md bg-gray-400 text-gray-700 text-center ${
             user.email.length > 4 &&
             user.email.includes("@") &&
             user.email.includes(".") &&
@@ -129,11 +136,11 @@ const SignUpForm = () => {
             "bg-white  text-gray-900"
           }`}
         >
-          {isLoading ? <Spinner/> : 'Siguiente'}
+          {isLoading ? <Spinner /> : "Siguiente"}
         </button>
       </div>
     </form>
   );
-}
+};
 
-export default SignUpForm
+export default SignUpForm;

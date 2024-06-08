@@ -1,20 +1,14 @@
-import Logo from '@/app/x-social-media-white-icon.svg';
+import Logo from "@/app/x-social-media-white-icon.svg";
 import Image from "next/image";
-import SignInWithGoogleButton from '@/components/SignInButton';
-import SignInEmail from '@/components/SignInEmail';
-import Link from 'next/link';
-
-
+import SignInWithGoogleButton from "@/components/client-component/SignInButton";
+import SignInEmail from "@/components/client-component/SignInEmail";
+import Link from "next/link";
 
 export default function LoginPage() {
   return (
     <main className="w-screen overflow-x-hidden h-screen flex items-center relative space-x-4 justify-center text-white pt-12">
-      <div className='flex justify-center lg:visible lg:relative invisible absolute  items-center w-[600px]'>
-        <Image
-        alt='X logo'
-        src={Logo}
-        width={400}
-        />
+      <div className="flex justify-center lg:visible lg:relative invisible absolute  items-center w-[600px]">
+        <Image alt="X logo" src={Logo} width={400} />
       </div>
       <div>
         <div className="w-[90%] p-4 flex flex-col space-y-10 max-w-[450px] mx-auto">

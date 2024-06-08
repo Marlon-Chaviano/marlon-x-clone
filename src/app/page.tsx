@@ -5,10 +5,6 @@ import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 import React from 'react'
 
-
-  
-
-
 const Home = async () => {
   
   const supabase = createClient();
@@ -22,7 +18,7 @@ const Home = async () => {
   
   return (
     <div className="w-full h-full flex justify-center relative items-stretch">
-      <div className="max-w-[85vw] w-full h-full flex relative text-white">
+      <div className="lg:max-w-[85vw] w-full  h-full flex relative text-white">
         <LeftSideBar />
         <MainComponent />
         <RightSection/>
