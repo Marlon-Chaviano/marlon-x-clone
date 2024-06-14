@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "sonner";
 import LeftSideBar from "@/components/LeftSideBar";
 import RightSection from "@/components/RightSection";
+import MeCard from "@/components/ui/MeCard";
 
 const inter = Inter({ subsets: ["latin"] });
 

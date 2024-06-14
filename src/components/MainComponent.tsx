@@ -12,7 +12,7 @@ const MainComponent = async () => {
 
 
   return (
-    <main className="lg:w-[60%] max-w-[600px] mx-auto flex flex-col h-full min-h-screen border-l-[0.5px] border-r-[0.5px] border-gray-600">
+    <main className="lg:w-[60%] max-w-[600px] mx-auto flex flex-col h-full min-h-screen border-t-[0.5px] border-l-[0.5px] border-r-[0.5px] border-gray-600">
       <h1 className="text-xl font-bold p-6 backdrop-blur-sm bg-black/10 sticky top-0">
         Home
       </h1>
