@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import {Toaster} from 'sonner';
-
+import { Toaster } from "sonner";
+import LeftSideBar from "@/components/LeftSideBar";
+import RightSection from "@/components/RightSection";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,13 +11,13 @@ export const metadata: Metadata = {
   title: "MarlonX",
   description: "X clon made by @Marlon-WebDeveloper",
   keywords: [
-    'developer',
-    'web developer',
-    'Marlon',
-    'Marlon chaviano',
-    'twitter clon',
-    'social media clon'
-  ]
+    "developer",
+    "web developer",
+    "Marlon",
+    "Marlon chaviano",
+    "twitter clon",
+    "social media clon",
+  ],
 };
 
 export default function RootLayout({
@@ -26,8 +27,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-        <Toaster />
-        <body className={`${inter.className} bg-black`}>{children}</body>
+      <Toaster />
+      <body className={`${inter.className} bg-black`}>
+        {children}
+      </body>
     </html>
   );
 }

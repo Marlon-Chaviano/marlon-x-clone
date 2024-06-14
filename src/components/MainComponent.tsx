@@ -8,11 +8,11 @@ const MainComponent = async () => {
   const supabase = createClient();
   const { data } = await supabase.auth.getUser();
   const userId = data?.user?.id;
-  const res = await getTweets(userId);
-  console.log(res);
+  const res = await getTweets(userId as string);
+
 
   return (
-    <main className="w lg:w-[60%] max-w-[600px] mx-auto flex flex-col h-full min-h-screen border-l-[0.5px] border-r-[0.5px] border-gray-600">
+    <main className="lg:w-[60%] max-w-[600px] mx-auto flex flex-col h-full min-h-screen border-l-[0.5px] border-r-[0.5px] border-gray-600">
       <h1 className="text-xl font-bold p-6 backdrop-blur-sm bg-black/10 sticky top-0">
         Home
       </h1>
@@ -25,6 +25,7 @@ const MainComponent = async () => {
           res.data?.map(({ tweet, profile, likes, hasLiked }) => {
             return (
               <Tweet
+                event={true}
                 key={tweet.id}
                 tweet={{
                   tweetDetails: { ...tweet },

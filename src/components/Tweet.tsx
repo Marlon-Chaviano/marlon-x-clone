@@ -1,16 +1,16 @@
-"use server";
+"use client";
 
 import { AiOutlineRetweet } from "react-icons/ai";
 import { BsBookmark, BsDot, BsThreeDots } from "react-icons/bs";
-import { FaRegComment } from "react-icons/fa";
 import {  FiShare } from "react-icons/fi";
 import { IoMdStats } from "react-icons/io";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import LikeBtn from "./client-component/LikeBtn";
-import { getLikes, isLiked } from "@/lib/supabase/queries";
 import { ProfileType, TweetType } from "@/lib/db/schema";
-import { profiles } from '../lib/db/schema';
+import ReplyDialog from "./client-component/ReplyDialog";
+import { useRouter } from "next/navigation";
+
 
 
 dayjs.extend(relativeTime);
@@ -23,12 +23,21 @@ export type TweetProps = {
   hasLiked:boolean,
   likesCount: number,
   currentUser: string;
+  event: boolean
 };
 
-const Tweet = async ({ tweet: data, currentUser, hasLiked, likesCount }: TweetProps) => {
+const Tweet =  ({ tweet: data, currentUser, hasLiked, likesCount, event }: TweetProps) => {
   const { userProfile, tweetDetails } = data;
+  const router = useRouter()
   return (
-    <div className="border-b-[0.5px] border-gray-600 p-4 w-full flex space-x-4">
+    <div
+      onClick={() => {
+        if (event) {
+          router.push(`home/tweet/${tweetDetails.id}`);
+        }
+      }}
+      className="border-b-[0.5px] hover:bg-white/10 cursor-pointer transition-all  border-gray-600 p-4 w-full flex space-x-4"
+    >
       <div>
         <div className="w-10 h-10 bg-slate-200 rounded-full" />
       </div>
@@ -49,13 +58,13 @@ const Tweet = async ({ tweet: data, currentUser, hasLiked, likesCount }: TweetPr
           </div>
         </div>
         <div className="text-white text-base my-1">{tweetDetails.text}</div>
-        <div className="bg-slate-400 aspect-square w-full h-80 rounded-xl mt-2"></div>
+        {/* <div className="bg-slate-400 aspect-square w-full h-80 rounded-xl mt-2"></div> */}
         <div className="flex items-center space-x-2 w-full justify-between mt-4">
           <div className="hover:text-primary transition duration-200 p-1 cursor-pointer">
-            <FaRegComment />
+            <ReplyDialog tweet={data} />
           </div>
           <div className="hover:text-primary transition duration-200 p-1 cursor-pointer">
-            <AiOutlineRetweet />
+            <AiOutlineRetweet onClick={(e) => e.stopPropagation()} />
           </div>
           <LikeBtn
             tweet={tweetDetails}
@@ -64,14 +73,14 @@ const Tweet = async ({ tweet: data, currentUser, hasLiked, likesCount }: TweetPr
             isUserLikedTweet={hasLiked}
           />
           <div className="hover:text-primary transition duration-200 p-1 cursor-pointer">
-            <IoMdStats />
+            <IoMdStats onClick={(e) => e.stopPropagation()} />
           </div>
           <div className="flex items-center space-x-4">
             <div className="hover:text-primary transition duration-200 p-1 cursor-pointer">
-              <BsBookmark />
+              <BsBookmark onClick={(e) => e.stopPropagation()} />
             </div>
             <div className="hover:text-primary transition duration-200 p-1 cursor-pointer">
-              <FiShare />
+              <FiShare onClick={(e) => e.stopPropagation()} />
             </div>
           </div>
         </div>

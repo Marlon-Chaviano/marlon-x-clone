@@ -1,10 +1,8 @@
 "use server";
-import { Database } from "../../../types/supabase";
 import { supabaseServer } from ".";
 import { db } from "../db";
 import { likes, profiles, tweets, TweetType, LikesType, ProfileType, tweetHashtag } from '../db/schema';
 import { and, desc, eq, exists } from "drizzle-orm";
-import { error } from "console";
 
 export const getLikes = async (tweetId: string) => {
 return await supabaseServer
@@ -30,30 +28,10 @@ export const isLiked = async ({
     return Boolean(data?.id)
 };
 
-// const queryWithUserId = `SELECT tweets.*,profiles.username, profiles.full_name ,COUNT(likes.id) AS likes_count,
-//   EXISTS (
-//     SELECT 1 
-//     FROM likes
-//     WHERE likes.tweet_id = tweets.id
-//     AND likes.user_id = $1
-//   ) as user_has_liked
-// FROM tweets
-// LEFT JOIN likes ON tweets.id = likes.tweet_id
-// JOIN profiles ON tweets.profile_id = profiles.id
-// GROUP BY tweets.id, profiles.username , profiles.full_name
-// ORDER BY tweets.created_at DESC;`;
-
-// const queryWithoutUserId = `SELECT tweets.*,profiles.username, profiles.full_name ,COUNT(likes.id) AS likes_count
-// FROM tweets
-// LEFT JOIN likes ON tweets.id = likes.tweet_id
-// JOIN profiles ON tweets.profile_id = profiles.id
-// GROUP BY tweets.id, profiles.username , profiles.full_name
-// ORDER BY tweets.created_at DESC;`;
-
-export const getTweets = async (currentUser?:string) => {
+export const getTweets = async (currentUser:string, getSingleTweetId?:string) => {
     
     try {
-      const rows = await db
+      let query = db
         .select({
           ...(currentUser ? {hasLiked:exists(
             db.select().from(likes).where(and(eq(likes.profileId,currentUser),eq(likes.tweetId,tweets.id)))
@@ -68,6 +46,11 @@ export const getTweets = async (currentUser?:string) => {
         .orderBy(desc(tweets.createdAt))
         .limit(10);
         
+        if (getSingleTweetId){
+          query.where(eq(tweets.id,getSingleTweetId));
+        }
+
+        const rows = await query
         if ( rows ) {
           const result = rows.reduce<Record<string, {tweet: TweetType; likes: LikesType[], profile:ProfileType, hasLiked: boolean}>
           >((acc,row) => {

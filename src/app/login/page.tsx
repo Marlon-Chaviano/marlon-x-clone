@@ -1,12 +1,20 @@
+
 import Logo from "@/app/x-social-media-white-icon.svg";
 import Image from "next/image";
 import SignInWithGoogleButton from "@/components/client-component/SignInButton";
 import SignInEmail from "@/components/client-component/SignInEmail";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
 
-export default function LoginPage() {
+export default async function LoginPage() {
+   const supabase = createClient()
+    const { data } = await supabase.auth.getUser();
+    if (data.user) {
+      redirect("home");
+    } 
   return (
-    <main className="w-screen overflow-x-hidden h-screen flex items-center relative space-x-4 justify-center text-white pt-12">
+    <div className="w-screen overflow-x-hidden h-screen flex items-center relative space-x-4 justify-center text-white pt-12">
       <div className="flex justify-center lg:visible lg:relative invisible absolute  items-center w-[600px]">
         <Image alt="X logo" src={Logo} width={400} />
       </div>
@@ -64,6 +72,6 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

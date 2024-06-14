@@ -23,8 +23,8 @@ export async function login(formData: FormData) {
   }
   console.log(data);
   
-  revalidatePath("/", "layout");
-  redirect("/");
+  revalidatePath("/home", "layout");
+  redirect("/home");
 }
 
 export async function signup(formData: FormData) {

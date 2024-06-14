@@ -40,7 +40,7 @@ const LeftSideBar = () => {
          {NAVIGATION_ITEMS.map((item) => (
           <Link
             className="hover:bg-white/10 text-2xl transition duration-200 w-fit flex items-center justify-start p-2 space-x-4 px-6 rounded-3xl"
-            href={`/${item.title.toLowerCase()}`}
+            href={item.title == 'Home' ? '/' : `/${item.title.toLowerCase()}`}
             key={item.title}
           >
             <div>

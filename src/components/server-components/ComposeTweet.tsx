@@ -47,7 +47,7 @@ const ComposeTweet = () => {
         err = "Something went wrong with the server"
       });
       
-      revalidatePath("/")
+      revalidatePath("/home")
       return { data: res , error: err}
       
     } 

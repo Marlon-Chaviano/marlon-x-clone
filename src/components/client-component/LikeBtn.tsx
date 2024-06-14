@@ -28,7 +28,8 @@ const LikeBtn = ({
   return (
     <button
       disabled={isPending}
-      onClick={() => {
+      onClick={(e) => {
+        e.stopPropagation()
         startTransition(() =>
           isUserLikedTweet
             ? unLikeTweet({
