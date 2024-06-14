@@ -19,7 +19,10 @@ const MeCard = () => {
         </div>
 
         <div className="hover:text-primary cursor-pointer transition hover:scale-[1.1]">
-          <a target="_blank" href="">
+          <a
+            target="_blank"
+            href="https://github.com/Marlon-WebDeveloper/marlon-x-clone"
+          >
             <BsGithub />
           </a>
         </div>
