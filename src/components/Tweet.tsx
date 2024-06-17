@@ -10,6 +10,8 @@ import LikeBtn from "./client-component/LikeBtn";
 import { ProfileType, TweetType } from "@/lib/db/schema";
 import ReplyDialog from "./client-component/ReplyDialog";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import BookmarkBtn from "./client-component/BookmarkBtn";
 
 
 
@@ -23,21 +25,19 @@ export type TweetProps = {
   hasLiked:boolean,
   likesCount: number,
   currentUser: string;
-  event: boolean
+  isBookmarked: boolean
 };
 
-const Tweet =  ({ tweet: data, currentUser, hasLiked, likesCount, event }: TweetProps) => {
+const Tweet =  ({ tweet: data, currentUser, hasLiked, likesCount, isBookmarked }: TweetProps) => {
   const { userProfile, tweetDetails } = data;
   const router = useRouter()
   return (
     <div
       onClick={() => {
-        if (event) {
-          router.push(`home/tweet/${tweetDetails.id}`);
-        }
+        router.replace(`/home/tweet/${tweetDetails.id}`)
       }}
       className="border-b-[0.5px] hover:bg-white/10 cursor-pointer transition-all  border-gray-600 p-4 w-full flex space-x-4"
-    >
+>
       <div>
         <div className="w-10 h-10 bg-slate-200 rounded-full" />
       </div>
@@ -76,9 +76,7 @@ const Tweet =  ({ tweet: data, currentUser, hasLiked, likesCount, event }: Tweet
             <IoMdStats onClick={(e) => e.stopPropagation()} />
           </div>
           <div className="flex items-center space-x-4">
-            <div className="hover:text-primary transition duration-200 p-1 cursor-pointer">
-              <BsBookmark onClick={(e) => e.stopPropagation()} />
-            </div>
+            <BookmarkBtn isBookmarked={isBookmarked} tweetId={tweetDetails.id} userId={currentUser}/>
             <div className="hover:text-primary transition duration-200 p-1 cursor-pointer">
               <FiShare onClick={(e) => e.stopPropagation()} />
             </div>

@@ -68,6 +68,10 @@ const MagicLinkForm = () => {
           You will recibe a link to sign up, please click it and you will be
           redirected to the home page
         </p>
+        <p className="text-balanced font-bold text-gray-500 text-sm">
+          <span className="text-red-500 font-extrabold">Important: </span>You have to click the
+          mail link in the same device you are trying to signIn
+        </p>
       </div>
       <div className="p-2 flex flex-col space-y-4">
         <Input

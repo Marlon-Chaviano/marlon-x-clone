@@ -1,5 +1,5 @@
 import Tweet from "@/components/Tweet";
-import { getTweets } from "@/lib/supabase/queries";
+import { getTweets, isBookmarked } from "@/lib/supabase/queries";
 import { createClient } from "@/utils/supabase/server";
 import React from "react";
 import { replies } from "../../../../lib/db/schema";
@@ -16,30 +16,30 @@ const page = async ({ params }: { params: { id: string } }) => {
   const { data } = await supabase.auth.getUser();
   const userId = data?.user?.id;
   const tweet = await getTweets(userId as string, params.id);
-
+  let isTweetBookmarked
+  if (tweet?.data && userId) isTweetBookmarked = isBookmarked(userId , tweet?.data[0].tweet.id);
   const repliesResponse = await db.query.replies.findMany({
     with: { profiles: true },
     where: eq(replies.tweetId, params.id),
   });
 
-  console.log(repliesResponse);
 
   return (
-    <main className="lg:w-[60%] max-w-[600px] mx-auto flex flex-col h-full min-h-screen border-l-[0.5px] border-r-[0.5px] border-gray-600">
-        {tweet?.data ? (
-          <Tweet
-            event={false}
-            hasLiked={tweet.data[0].hasLiked}
-            likesCount={tweet.data[0].likes.length ?? 0}
-            currentUser={userId as string}
-            tweet={{
-              tweetDetails: tweet.data[0].tweet,
-              userProfile: tweet.data[0].profile,
-            }}
-          />
-        ) : (
-          <p>No tweet Found</p>
-        )}
+    <>
+      {tweet?.data ? (
+        <Tweet
+          isBookmarked={Boolean(isBookmarked)}
+          hasLiked={tweet.data[0].hasLiked}
+          likesCount={tweet.data[0].likes.length ?? 0}
+          currentUser={userId as string}
+          tweet={{
+            tweetDetails: tweet.data[0].tweet,
+            userProfile: tweet.data[0].profile,
+          }}
+        />
+      ) : (
+        <p>No tweet Found</p>
+      )}
 
       {repliesResponse.length > 0 &&
         tweet?.data &&
@@ -69,8 +69,12 @@ const page = async ({ params }: { params: { id: string } }) => {
             </div>
           );
         })}
-        {repliesResponse.length == 0 && <p className="w-full text-center font-bold mt-4 text-gray-300">No replies yet</p>}
-    </main>
+      {repliesResponse.length == 0 && (
+        <p className="w-full text-center font-bold m-4 text-gray-300">
+          No replies yet
+        </p>
+      )}
+    </>
   );
 };
 

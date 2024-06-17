@@ -22,7 +22,7 @@ const LikeBtn = ({
   currentUser,
   isUserLikedTweet,
 }: likeBtnProps) => {
-  console.log(isUserLikedTweet);
+
 
   const [isPending, startTransition] = useTransition();
   return (

@@ -21,9 +21,7 @@ export async function GET(request: NextRequest) {
       type,
       token_hash
     });
-
-    console.log(error);
-    
+   
     
     if (!error) {
       redirectTo.searchParams.delete("next");

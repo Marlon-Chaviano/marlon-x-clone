@@ -12,6 +12,7 @@ const SignUpForm = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
+    password2: "",
     username: "",
   });
   const router = useRouter();
@@ -21,10 +22,16 @@ const SignUpForm = () => {
   type UserData = {
     email: string;
     password: string;
+    password2: string;
     username: string;
   };
 
-  async function hanldeSubmit({ email, password, username }: UserData) {
+  async function hanldeSubmit({
+    email,
+    password,
+    password2,
+    username,
+  }: UserData) {
     setIsLoading(true);
     const supabase = createClient();
     const formData = new FormData();
@@ -33,18 +40,26 @@ const SignUpForm = () => {
     formData.append("username", username);
     const { data: profiles } = await supabase.from("profiles").select();
 
-    if (profiles?.find((profile) => profile?.username == username)) {
+    if (password !== password2) {
+      return toast.error("Passwords doesn't match");
+    } else if (profiles?.find((profile) => profile?.username == username)) {
       setIsLoading(false);
       setUser({ ...user, username: "" });
       return toast.error("Username already exists");
     } else {
       try {
-        await signup(formData).then(() => setIsLoading(false)).then(() => {
-          router.push(`/private?email=${user.email}&&username=${user.username}`);
-        })
+        await signup(formData)
+          .then(() => setIsLoading(false))
+          .then(() => {
+            router.push(
+              `/private?email=${user.email}&&username=${user.username}`
+            );
+          });
       } catch (error) {
-        setIsLoading(false)
-        return toast.error(`${error as string} - You can try again in a few minutes`)
+        setIsLoading(false);
+        return toast.error(
+          `${error as string} - You can try again in a few minutes`
+        );
       }
     }
   }
@@ -54,36 +69,66 @@ const SignUpForm = () => {
       className="mt-4 p-6 max-w-[450px] flex flex-col space-y-6"
       onSubmit={(e) => {
         e.preventDefault();
-        const res = hanldeSubmit(user);
-        console.log(res);
+        hanldeSubmit(user);
       }}
     >
-      <p className="text-2xl tracking-wide font-extrabold">Crea tu Cuenta</p>
+      <p className="text-2xl tracking-wide font-extrabold">
+        Create your account
+      </p>
+      <p className="text-balanced font-bold text-gray-500 text-sm">
+        You will recibe a link to sign up, please click it and you will be
+        redirected to the home page
+      </p>
+      <p className="text-balanced font-bold text-gray-500 text-sm">
+        <span className="text-red-500 font-extrabold">Important: </span>You have
+        to click the mail link in the same device you are trying to signIn
+      </p>
       <div className="p-2 flex flex-col space-y-4">
-        <Input
-          className={`bg-black ${
-            !user.email.includes("@")
-              ? "focus:border-red-600"
-              : "focus:border-primary"
-          }
+        <div className="flex space-x-2">
+          <Input
+            className={`bg-black ${
+              !user.email.includes("@")
+                ? "focus:border-red-600"
+                : "focus:border-primary"
+            }
              ${
                user.email.indexOf(".") == -1
                  ? "focus:border-red-600"
                  : "focus:border-primary"
              }
              border-gray-800 py-4 w-full px-6 rounded-none  focus:border-2  placeholder:text-gray-500`}
-          placeholder="Email"
-          name="email"
-          autoComplete="off"
-          type="email"
-          required
-          onChange={(e) => {
-            setUser({
-              ...user,
-              email: e.target.value,
-            });
-          }}
-        />
+            placeholder="Email"
+            name="email"
+            autoComplete="off"
+            type="email"
+            required
+            onChange={(e) => {
+              setUser({
+                ...user,
+                email: e.target.value,
+              });
+            }}
+          />
+
+          <Input
+            className={`bg-black border-gray-800 ${
+              user.username.length < 4
+                ? "focus:border-red-600 focus:border-2"
+                : "focus:border-primary focus:border-2"
+            } py-4 w-full px-6 rounded-none    placeholder:text-gray-500`}
+            name="username"
+            required
+            type="text"
+            autoComplete="off"
+            placeholder="@username"
+            onChange={(e) => {
+              setUser({
+                ...user,
+                username: e.target.value,
+              });
+            }}
+          />
+        </div>
         <Input
           className={`bg-black border-gray-800 ${
             user.password.length < 6
@@ -102,29 +147,32 @@ const SignUpForm = () => {
             });
           }}
         />
-
         <Input
           className={`bg-black border-gray-800 ${
-            user.username.length < 4
+            user.password2.length < 6
               ? "focus:border-red-600 focus:border-2"
               : "focus:border-primary focus:border-2"
           } py-4 w-full px-6 rounded-none    placeholder:text-gray-500`}
-          name="username"
+          name="password2"
           required
-          type="text"
+          type="password"
           autoComplete="off"
-          placeholder="@username"
+          placeholder="Password"
           onChange={(e) => {
             setUser({
               ...user,
-              username: e.target.value,
+              password2: e.target.value,
             });
           }}
         />
+
         <button
           type="submit"
           disabled={
-            user.email.length < 5 || user.password.length < 6 || isLoading
+            user.email.length < 5 ||
+            user.password.length < 6 ||
+            isLoading ||
+            user.password2.length < 6
           }
           className={`hover:opacity-85 ${
             isLoading && "hover:opacity-100"

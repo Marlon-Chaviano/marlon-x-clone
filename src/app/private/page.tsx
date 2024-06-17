@@ -9,8 +9,7 @@ import { signup } from '@/app/login/actions';
 const WaitPage = () => {
 
     const params = useSearchParams()
-    console.log(params);
-    
+
     const email = params.get("email")
     const username = params.get("username")
 

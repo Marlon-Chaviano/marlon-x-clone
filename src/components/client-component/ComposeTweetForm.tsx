@@ -31,7 +31,7 @@ const ComposeTweetForm = ({ serverAction }: Props) => {
         
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error as string)
     }
   };
 

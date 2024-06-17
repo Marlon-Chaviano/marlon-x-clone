@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { redirect, RedirectType } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 
 
@@ -16,15 +16,22 @@ export async function login(formData: FormData) {
     password: formData.get("password") as string,
   };
 
+
   const {data , error } = await supabase.auth.signInWithPassword(newdata);
 
   if (error) {
-    redirect("/error");
+    throw error
   }
-  console.log(data);
   
   revalidatePath("/home", "layout");
   redirect("/home");
+}
+
+export async function logout() {
+  const supabse = createClient()
+  await supabse.auth.signOut()
+  revalidatePath('/home')
+  redirect("login",RedirectType.replace)
 }
 
 export async function signup(formData: FormData) {
@@ -69,7 +76,7 @@ export async function signInWithEmail(formData: FormData) {
         
       },
     }); 
-    console.log(data);
+
     if ( error ) throw error
 }
 

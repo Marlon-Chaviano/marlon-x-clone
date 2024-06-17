@@ -13,7 +13,7 @@ const SignInEmail = () => {
         <div className="mr-2">
           <MdEmail />
         </div>
-        Registrarse con Magic Link
+        Sign up with Magic Link
       </Link>
   );
 }
