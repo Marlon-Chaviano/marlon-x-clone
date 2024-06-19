@@ -5,13 +5,6 @@ import { toast } from "sonner";
 
 
 type Props = {
-  // serverAction: (
-  //   formData: FormData
-  // ) => Promise<
-  //   | { data: null; error: { message: string } }
-  //   | { data: null; error: PostgrestError | null }
-  //   | undefined
-  // >;
   serverAction: any
 };
 
@@ -38,7 +31,7 @@ const ComposeTweetForm = ({ serverAction }: Props) => {
   return (
     <form action={handleSubmit} className="flex flex-col w-full">
       <input
-
+        id="input"
         autoComplete="off"
         value={input}
         type="text"

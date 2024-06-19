@@ -17,7 +17,7 @@ const page = async () => {
   
 
   return (
-    <div>
+    <div className="h-full min-h-screen">
       <div className="w-full flex flex-col pt-4 justify-center items-center text-center border-t-[0.5px] border-b-[0.5px] border-gray-700 ">
         <div className="font-extrabold text-lg">Bookmarks</div>
         <div className="w-[95px] h-[2px] bg-primary"></div>

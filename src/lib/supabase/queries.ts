@@ -70,7 +70,6 @@ export const getTweets = async (
       .leftJoin(likes, eq(tweets.id, likes.tweetId))
       .innerJoin(profiles, eq(tweets.profileId, profiles.id))
       .orderBy(desc(tweets.createdAt))
-      .limit(10);
 
     if (getSingleTweetId && getSingleTweetId != "") {
       query.where(eq(tweets.id, getSingleTweetId));

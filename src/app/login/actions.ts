@@ -31,7 +31,7 @@ export async function logout() {
   const supabse = createClient()
   await supabse.auth.signOut()
   revalidatePath('/home')
-  redirect("login",RedirectType.replace)
+  redirect("/login",RedirectType.replace)
 }
 
 export async function signup(formData: FormData) {

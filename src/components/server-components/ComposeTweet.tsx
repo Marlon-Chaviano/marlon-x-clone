@@ -13,7 +13,7 @@ import { tweets } from '@/lib/db/schema';
 
 const ComposeTweet = () => {
 
-    async function submitTweet(formData: FormData) {
+   async function submitTweet(formData: FormData) {
       "use server"
 
       const tweet = formData.get("tweet");

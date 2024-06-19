@@ -12,7 +12,7 @@ const LogoutBtn = () => {
         e.preventDefault()
         logout()
       }}>
-      <button type="submit" className="p-2 bg-red-950 text-red-700 hover:text-red-500 border-red-700 hover:border-[1px] transition-all rounded-full">
+      <button className="p-2 bg-red-950 text-red-700 hover:text-red-500 border-red-700 hover:border-[1px] transition-all rounded-full">
         <LogOutIcon className=""/>
       </button>
     </form>

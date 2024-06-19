@@ -11,7 +11,7 @@ const page = async ({ params }: { params: { id: string } }) => {
   const tweets = await getTweets(params.id, "", true);
 
   return (
-    <>
+    <div className="h-full min-h-screen">
       <div className="w-full p-2 py-4 flex justify-center items-center space-y-2">
         <div className="flex space-x-2 items-center">
           <div>
@@ -52,7 +52,7 @@ const page = async ({ params }: { params: { id: string } }) => {
           </p>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

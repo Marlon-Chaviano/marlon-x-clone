@@ -5,11 +5,7 @@ import React from "react";
 import { replies } from "../../../../lib/db/schema";
 import { db } from "@/lib/db";
 import { eq } from "drizzle-orm";
-import { BsDot, BsThreeDots } from "react-icons/bs";
-import dayjs from "dayjs";
-import ReplyDialog from "@/components/client-component/ReplyDialog";
-import { AiOutlineRetweet } from "react-icons/ai";
-import LikeBtn from "@/components/client-component/LikeBtn";
+import {  BsThreeDots } from "react-icons/bs";
 
 const page = async ({ params }: { params: { id: string } }) => {
   const supabase = createClient();
@@ -25,7 +21,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 
 
   return (
-    <>
+    <div className="h-full min-h-screen">
       {tweet?.data ? (
         <Tweet
           isBookmarked={Boolean(isBookmarked)}
@@ -74,7 +70,7 @@ const page = async ({ params }: { params: { id: string } }) => {
           No replies yet
         </p>
       )}
-    </>
+    </div>
   );
 };
 

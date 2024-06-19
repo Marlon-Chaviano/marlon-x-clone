@@ -15,9 +15,9 @@ export default function RootLayout({
         <div className="w-full flex justify-center">
           <MeCard />
         </div>
-        <div className="flex w-full h-full">
+        <div className="flex w-full min-h-screen h-full">
           <LeftSideBar />
-          <main className="lg:w-[60%] max-w-[600px] mx-auto flex flex-col h-full min-h-screen border-t-[0.5px] border-l-[0.5px] border-r-[0.5px] border-gray-600">
+          <main className="lg:w-[60%] max-w-[600px] mx-auto flex flex-col min-h-screen h-full border-t-[0.5px] border-l-[0.5px] border-r-[0.5px] border-gray-600">
             {children}
             <BottomNav />
           </main>
