@@ -6,6 +6,7 @@ import NAVIGATION_ITEMS from '../utils/constants/nav-items'
 import LogoutBtn from "./ui/logout";
 import { redirect} from "next/navigation";
 import NavItem from "./client-component/NavItem";
+import ComposeLeftTweetBtn from "./server-components/ComposeLeftBtn";
 
 
 const LeftSideBar = async () => {
@@ -21,14 +22,12 @@ const LeftSideBar = async () => {
         {NAVIGATION_ITEMS.map((item, i) => (
           <NavItem key={i} item={item} userId={user.id} />
         ))}
-        <button className="bg-primary m-4 rounded-full text-2xl font-bold p-4 hover:opacity-70 transition duration-200">
-          Post
-        </button>
+      <ComposeLeftTweetBtn/>
       </div>
       <div className="rounded-full w-full justify-between flex items-center space-x-2 bg-transparent p-4 text-center">
         <div className="flex space-x-2 items-center">
           <div className="rounded-full bg-slate-400 w-8 h-8"></div>
-          <div className="text-left text-sm">
+          <div className="text-left text-sm truncate">
             <div className="font-semibold">{user.username}</div>
             <div className="">@{user.username}</div>
           </div>

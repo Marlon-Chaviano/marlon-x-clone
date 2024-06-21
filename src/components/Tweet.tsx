@@ -1,7 +1,7 @@
 "use client";
 
 import { AiOutlineRetweet } from "react-icons/ai";
-import { BsBookmark, BsDot, BsThreeDots } from "react-icons/bs";
+import { BsDot, BsThreeDots } from "react-icons/bs";
 import {  FiShare } from "react-icons/fi";
 import { IoMdStats } from "react-icons/io";
 import dayjs from "dayjs";
@@ -10,7 +10,6 @@ import LikeBtn from "./client-component/LikeBtn";
 import { ProfileType, TweetType } from "@/lib/db/schema";
 import ReplyDialog from "./client-component/ReplyDialog";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import BookmarkBtn from "./client-component/BookmarkBtn";
 
 
@@ -44,8 +43,8 @@ const Tweet =  ({ tweet: data, currentUser, hasLiked, likesCount, isBookmarked }
       <div className="flex flex-col w-full">
         <div className="flex items-center my-1 w-full justify-between">
           <div className="flex items-center space-x-1 ">
-            <div className="font-bold">{userProfile.username}</div>
-            <div className="text-gray-500">@{userProfile.username}</div>
+            <div className="font-bold truncate">{userProfile.username}</div>
+            <div className="text-gray-500 truncate">@{userProfile.username}</div>
             <div>
               <BsDot />
             </div>

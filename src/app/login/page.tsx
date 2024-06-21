@@ -1,11 +1,12 @@
 
 import Logo from "@/app/x-social-media-white-icon.svg";
 import Image from "next/image";
-import SignInWithGoogleButton from "@/components/client-component/SignInButton";
 import SignInEmail from "@/components/client-component/SignInEmail";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
+import { text } from 'drizzle-orm/pg-core';
+import { SignInWithGithubButton, SignInWithGoogleBtn } from "@/components/client-component/SignInButton";
 
 export default async function LoginPage() {
    const supabase = createClient()
@@ -37,8 +38,9 @@ export default async function LoginPage() {
               <h3 className="text-3xl font-bold text-white/85">Join Today</h3>
             </div>
             <div className="flex flex-col space-y-2">
-              <SignInWithGoogleButton text={"Sign up with Github"} />
-              <SignInEmail />
+              <SignInWithGithubButton text={"Sign up with Github"} />
+              {/* <SignInEmail /> */}
+              <SignInWithGoogleBtn text={"Sign up with Google"}/>
             </div>
             <div className="flex w-full items-center justify-center space-x-2">
               <div className="w-[150px] h-[0.5px] bg-slate-500"></div>

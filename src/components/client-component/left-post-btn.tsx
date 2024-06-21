@@ -1,40 +1,43 @@
 "use client";
 import React, { useState } from "react";
-import { DialogTrigger , Dialog, DialogContent} from "../ui/dialog";
+import { DialogTrigger, Dialog, DialogContent } from "../ui/dialog";
 import { toast } from "sonner";
 
 type Props = {
-  serverAction: any
-}
+  serverAction: any;
+};
 
-const PostBtn = ({serverAction}:Props) => {
-    const [isOpen, setisOpen] = useState<boolean>(false)
-     const [input, setinput] = useState("");
+const LeftPostBtn = ({ serverAction }: Props) => {
+  const [isOpen, setisOpen] = useState<boolean>(false);
+  const [input, setinput] = useState("");
 
-     const handleSubmit = async (data: FormData) => {
-       try {
-         const res = await serverAction(data);
-         setisOpen(false)
-         if (res?.error) {
-           return toast.error(res.error as string);
-         } else {
-           setinput("");
-           toast.success("Tweet created successfully");
-         }
-       } catch (error) {
-         toast.error(error as string);
-       }
-     };
+  const handleSubmit = async (data: FormData) => {
+    try {
+      const res = await serverAction(data);
+      setisOpen(false);
+      if (res?.error) {
+        return toast.error(res.error as string);
+      } else {
+        setinput("");
+        toast.success("Tweet created successfully");
+      }
+    } catch (error) {
+      toast.error(error as string);
+    }
+  };
   return (
     <Dialog open={isOpen} onOpenChange={setisOpen}>
-      <DialogTrigger className="sticky lg:hidden flex bottom-20 left-[80%]" onClick={(e) => e.stopPropagation()}>
-        <div className="bg-primary p-6 text-white font-extrabold text-lg sticky flex justify-center items-center bottom-20 mr-4 left-[80%] w-10 h-10 rounded-full">
-          +
-        </div>
+      <DialogTrigger
+        className="sticky lg:hidden flex bottom-20 left-[80%]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button className="bg-primary m-4 rounded-full text-2xl font-bold p-4 hover:opacity-70 transition duration-200">
+          Post
+        </button>
       </DialogTrigger>
       <DialogContent
         onClick={(e) => e.stopPropagation()}
-        className="bg-zinc-950 w-[80%] border-[0.5px] border-gray-800 shadow-md text-white"
+        className="bg-zinc-950  border-gray-800 shadow-md text-white"
       >
         <form action={handleSubmit} className="flex flex-col w-full">
           <input
@@ -64,4 +67,4 @@ const PostBtn = ({serverAction}:Props) => {
   );
 };
 
-export default PostBtn;
+export default LeftPostBtn;

@@ -92,6 +92,20 @@ export async function signInWithGithub() {
   if (data.url) {
     redirect(data.url); // use the redirect API for your server framework
   }
-  if (error) redirect("/error")
+  if (error) throw error
   
+}
+
+export async function signInWithGoogle() {
+  const supabase = createClient()
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `https://marlon-x-clone-3cf.vercel.app/auth/callback`,
+      },
+      });
+      if(data.url){
+        redirect(data.url)
+      }
+      if(error) throw error
 }
