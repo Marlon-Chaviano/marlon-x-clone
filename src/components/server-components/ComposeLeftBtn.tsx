@@ -8,6 +8,7 @@ import { revalidatePath } from "next/cache";
 import ComposeTweetForm from "../client-component/ComposeTweetForm";
 import { db } from "../../lib/db/index";
 import { tweets } from "@/lib/db/schema";
+import LeftPostBtn from "../client-component/left-post-btn";
 
 const ComposeLeftTweetBtn = () => {
   async function submitTweet(formData: FormData) {
@@ -51,7 +52,7 @@ const ComposeLeftTweetBtn = () => {
     return { data: res, error: err };
   }
 
-  return <PostBtn serverAction={submitTweet} />;
+  return <LeftPostBtn serverAction={submitTweet}/>;
 };
 
 export default ComposeLeftTweetBtn;

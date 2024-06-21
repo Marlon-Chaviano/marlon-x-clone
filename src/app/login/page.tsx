@@ -5,8 +5,7 @@ import SignInEmail from "@/components/client-component/SignInEmail";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
-import { text } from 'drizzle-orm/pg-core';
-import { SignInWithGithubButton, SignInWithGoogleBtn } from "@/components/client-component/SignInButton";
+import { SignInWithGithubButton } from "@/components/client-component/SignInButton";
 
 export default async function LoginPage() {
    const supabase = createClient()
@@ -39,8 +38,8 @@ export default async function LoginPage() {
             </div>
             <div className="flex flex-col space-y-2">
               <SignInWithGithubButton text={"Sign up with Github"} />
-              {/* <SignInEmail /> */}
-              <SignInWithGoogleBtn text={"Sign up with Google"}/>
+              <SignInEmail />
+
             </div>
             <div className="flex w-full items-center justify-center space-x-2">
               <div className="w-[150px] h-[0.5px] bg-slate-500"></div>
