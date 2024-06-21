@@ -41,6 +41,7 @@ const SignUpForm = () => {
     const { data: profiles } = await supabase.from("profiles").select();
 
     if (password !== password2) {
+      setIsLoading(false);
       return toast.error("Passwords doesn't match");
     } else if (profiles?.find((profile) => profile?.username == username)) {
       setIsLoading(false);
@@ -60,6 +61,8 @@ const SignUpForm = () => {
         return toast.error(
           `${error as string} - You can try again in a few minutes`
         );
+      } finally {
+        setIsLoading(false)
       }
     }
   }

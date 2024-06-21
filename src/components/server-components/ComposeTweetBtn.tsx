@@ -52,7 +52,11 @@ const ComposeTweetBtn = () => {
        return { data: res, error: err };
      } 
 
-     return <PostBtn serverAction={submitTweet}/>
+     return (
+       <div className="h-full min-h-screen">
+         <PostBtn serverAction={submitTweet} />
+       </div>
+     );
 }
 
 export default ComposeTweetBtn
