@@ -17,7 +17,7 @@ export async function login(formData: FormData) {
   };
 
 
-  const {data , error } = await supabase.auth.signInWithPassword(newdata);
+  const { error } = await supabase.auth.signInWithPassword(newdata);
 
   if (error) {
     throw error
@@ -65,7 +65,7 @@ export async function signInWithEmail(formData: FormData) {
       email: formData.get("email") as string,
       username: formData.get("username") as string,
     };
-
+    
     const { data , error } = await supabase.auth.signInWithOtp({
       email: user.email,
       options: {
@@ -79,4 +79,19 @@ export async function signInWithEmail(formData: FormData) {
 
     if ( error ) throw error
 }
+export async function signInWithGithub() {
+  const supabase = createClient()
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "github",
+    options: {
+      redirectTo: `http://localhost:3000/auth/callback`,
+    },
+  });
 
+  
+  if (data.url) {
+    redirect(data.url); // use the redirect API for your server framework
+  }
+  if (error) redirect("/error")
+  
+}

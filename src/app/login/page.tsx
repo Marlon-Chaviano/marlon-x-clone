@@ -37,7 +37,7 @@ export default async function LoginPage() {
               <h3 className="text-3xl font-bold text-white/85">Join Today</h3>
             </div>
             <div className="flex flex-col space-y-2">
-              <SignInWithGoogleButton text={"Sign up with Google"} />
+              <SignInWithGoogleButton text={"Sign up with Github"} />
               <SignInEmail />
             </div>
             <div className="flex w-full items-center justify-center space-x-2">

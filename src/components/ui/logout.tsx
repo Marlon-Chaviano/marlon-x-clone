@@ -3,11 +3,15 @@
 import { logout } from "@/app/login/actions"
 import { LogOutIcon } from "lucide-react"
 
-const LogoutBtn = () => {
+type newClassnames = {
+  classname?: string
+}
+
+const LogoutBtn = ({classname}:newClassnames) => {
   return (
     <form
       action='submit'
-      className="p-2 bg-black/20 border-[0,5px] border-red-500 rounded-full hover:bg-white/5 transition duration-200 "
+      className={`p-2  border-red-500 rounded-full ${classname}`}
       onSubmit={(e) => {
         e.preventDefault()
         logout()

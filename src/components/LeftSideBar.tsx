@@ -18,8 +18,8 @@ const LeftSideBar = async () => {
   return (
     <section className="hidden lg:flex lg:flex-col sticky top-0 md:h-[90vh] lg:w-[23%] w-20 items-stretch">
       <div className="flex md:flex-col md:items-stretch md:h-full  md:space-y-4 md:mt-4">
-        {NAVIGATION_ITEMS.map((item,i) => (
-          <NavItem key={i} item={item} userId={user.id}/>
+        {NAVIGATION_ITEMS.map((item, i) => (
+          <NavItem key={i} item={item} userId={user.id} />
         ))}
         <button className="bg-primary m-4 rounded-full text-2xl font-bold p-4 hover:opacity-70 transition duration-200">
           Post
@@ -33,7 +33,7 @@ const LeftSideBar = async () => {
             <div className="">@{user.username}</div>
           </div>
         </div>
-          <LogoutBtn/>
+        <LogoutBtn classname="bg-black/20 border-[0,5px] hover:bg-white/5 transition duration-200 " />
       </div>
     </section>
   );
