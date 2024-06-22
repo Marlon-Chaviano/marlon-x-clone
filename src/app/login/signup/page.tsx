@@ -6,7 +6,7 @@ import SignUpForm from "@/components/client-component/SignUpForm";
 
 const page = () => {
   return (
-    <main className="p-10 pt-40 w-screen h-screen  max-w-[600px] mx-auto text-white">
+    <main className="p-10 pt-10 w-screen h-screen  max-w-[600px] mx-auto text-white">
       <div className="w-full max-w-[450px]">
         <div className="flex w-[50%] justify-between items-center">
           <Link href={"/login"}>

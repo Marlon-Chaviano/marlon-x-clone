@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect, RedirectType } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
+import { AuthError } from "@supabase/supabase-js";
 
 
 
@@ -55,7 +56,7 @@ export async function signup(formData: FormData) {
       }
     }
   });  
-  if ( error ) throw error
+  if ( error ) throw error.message
 }
 
 export async function signInWithEmail(formData: FormData) {

@@ -59,7 +59,7 @@ const SignUpForm = () => {
       } catch (error) {
         setIsLoading(false);
         return toast.error(
-          `${error as string} - You can try again in a few minutes`
+          `${error} - You can try again in a few minutes`
         );
       } finally {
         setIsLoading(false)
@@ -69,7 +69,7 @@ const SignUpForm = () => {
   return (
     <form
       action="submit"
-      className="mt-4 p-6 max-w-[450px] flex flex-col space-y-6"
+      className="p-6 mt-1 max-w-[450px] flex flex-col space-y-6"
       onSubmit={(e) => {
         e.preventDefault();
         hanldeSubmit(user);

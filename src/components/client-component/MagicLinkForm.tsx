@@ -56,7 +56,7 @@ const MagicLinkForm = () => {
 
   return (
     <form
-      className="mt-4 p-6 max-w-[450px] flex flex-col space-y-6"
+      className="mt-1 p-6 max-w-[450px] flex flex-col space-y-6"
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmit(user);
