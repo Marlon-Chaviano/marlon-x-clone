@@ -13,10 +13,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  //   const supabase = createClient();
-  //  const { data } = await supabase.auth.getUser();
-  //  if (data.user) {
-  //    redirect("home");
-  //  }
+    const supabase = createClient();
+   const { data } = await supabase.auth.getUser();
+   if (data.user) {
+     redirect("home");
+   }
   return <div>{children}</div>;
 }

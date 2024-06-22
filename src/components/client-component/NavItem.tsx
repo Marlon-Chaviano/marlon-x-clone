@@ -39,7 +39,7 @@ const NavItem = ({ item, userId }: Item) => {
       replace
       className={`${
         item.title == "X" ? "hover:bg-none hidden" : "hover:bg-white/10 flex"
-      } text-2xl  transition duration-200 w-fit  items-center justify-start lg:p-2 p-4 space-x-4 px-6 lg:rounded-3xl ${
+      } text-2xl  transition duration-200 w-fit lg:px-4  items-center justify-start lg:p-2 p-4 space-x-4 px-6 lg:rounded-3xl ${
         item.title.toLowerCase() == path && "bg-white/10"
       }`}
       href={

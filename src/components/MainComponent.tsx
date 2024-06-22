@@ -3,9 +3,6 @@ import ComposeTweet from "./server-components/ComposeTweet";
 import { getTweets, isBookmarked } from '@/lib/supabase/queries';
 import Tweet from "./Tweet";
 import { createClient } from "@/utils/supabase/server";
-import BottomNav from "./ui/bottom-nav";
-import { BsPlus } from "react-icons/bs";
-import PostBtn from "./client-component/post-btn";
 import ComposeTweetBtn from "./server-components/ComposeTweetBtn";
 import LogoutBtn from "./ui/logout";
 
@@ -19,12 +16,10 @@ const MainComponent = async () => {
 
   return (
     <>
-      <div className="h-full min-h-screen" id="post-input">
+      <div className="h-full relative min-h-screen" id="post-input">
         <div className="w-full z-10 border-b-[0.5px] border-gray-600 flex items-center justify-between sticky top-0 backdrop-blur-sm">
-          <h1 className="text-xl font-bold p-6 bg-black/10 ">
-            Home
-          </h1>
-          <LogoutBtn classname="lg:hidden"/>
+          <h1 className="text-xl font-bold p-6 bg-black/10 ">Home</h1>
+          <LogoutBtn classname="lg:hidden" />
         </div>
         <div className="border-t-[0.5px] border-b-[0.5px] flex px-4 py-6 items-stretch space-x-2 border-gray-600 relative">
           <div className="w-10 h-10 bg-slate-400 rounded-full flex-none"></div>
@@ -52,8 +47,8 @@ const MainComponent = async () => {
               );
             })}
         </div>
-        <ComposeTweetBtn />
       </div>
+      <ComposeTweetBtn />
     </>
   );
 };

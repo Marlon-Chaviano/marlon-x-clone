@@ -28,12 +28,12 @@ const LeftPostBtn = ({ serverAction }: Props) => {
   return (
     <Dialog open={isOpen} onOpenChange={setisOpen}>
       <DialogTrigger
-        className="sticky lg:hidden flex bottom-20 left-[80%]"
+        className="flex"
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="bg-primary m-4 rounded-full text-2xl font-bold p-4 hover:opacity-70 transition duration-200">
+        <div className="bg-primary m-4 rounded-full w-full text-2xl font-bold p-4 hover:opacity-70 transition duration-200">
           Post
-        </button>
+        </div>
       </DialogTrigger>
       <DialogContent
         onClick={(e) => e.stopPropagation()}

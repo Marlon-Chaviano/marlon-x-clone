@@ -27,8 +27,8 @@ const PostBtn = ({serverAction}:Props) => {
      };
   return (
     <Dialog open={isOpen} onOpenChange={setisOpen}>
-      <DialogTrigger className="sticky lg:hidden flex bottom-20 left-[80%]" onClick={(e) => e.stopPropagation()}>
-        <div className="bg-primary p-6 text-white font-extrabold text-lg sticky flex justify-center items-center bottom-20 mr-4 left-[80%] w-10 h-10 rounded-full">
+      <DialogTrigger className="lg:hidden sticky flex bottom-20 left-[80%]" onClick={(e) => e.stopPropagation()}>
+        <div className="bg-primary shadow-lg p-6 text-white font-extrabold text-lg sticky flex justify-center items-center bottom-20 mr-4 left-[80%] w-10 h-10 rounded-full">
           +
         </div>
       </DialogTrigger>
