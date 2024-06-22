@@ -18,7 +18,7 @@ const WaitPage = () => {
 
   return (
     <div className="w-screen h-screen text-white p-6 flex  col justify-center items-center">
-      <div className="flex items-center space-x-2">
+      <div className="flex px-6 py-4 items-center space-x-2">
         <div>
           <Image alt="x logo" src={Logo} width={80} height={80} />
         </div>

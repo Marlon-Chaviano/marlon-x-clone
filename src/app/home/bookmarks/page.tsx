@@ -42,7 +42,7 @@ const page = async () => {
               />
             );
           })}
-          { res?.data?.length == 0 && <div className="w-full text-center p-4 m-2">You haven&apos;t bookmarked anything yet</div>}
+          { res?.data?.length == 0 && <div className="w-full text-center font-bold p-4 m-2">You haven&apos;t bookmarked anything yet</div>}
       </div>
     </div>
   );
