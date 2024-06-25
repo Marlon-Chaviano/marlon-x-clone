@@ -60,7 +60,7 @@ const Tweet =  ({ tweet: data, currentUser, hasLiked, likesCount, isBookmarked }
         {/* <div className="bg-slate-400 aspect-square w-full h-80 rounded-xl mt-2"></div> */}
         <div className="flex items-center space-x-2 w-full justify-between mt-4">
           <div className="hover:text-primary transition duration-200 p-1 cursor-pointer">
-            <ReplyDialog tweet={data} />
+            <ReplyDialog tweet={data} userId={currentUser} />
           </div>
           <div className="hover:text-primary transition duration-200 p-1 cursor-pointer">
             <AiOutlineRetweet onClick={(e) => e.stopPropagation()} />

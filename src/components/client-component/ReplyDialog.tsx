@@ -19,8 +19,9 @@ type ReplyDialogProps = {
     tweetDetails: TweetType;
     userProfile: ProfileType;
   };
+  userId: string
 };
-const ReplyDialog = ({tweet:data}: ReplyDialogProps) => {
+const ReplyDialog = ({tweet:data, userId}: ReplyDialogProps) => {
     const { userProfile, tweetDetails } = data;
     const [replyText, setReplyText] = useState<string>('')
     const [isReplyPending, startTransition] = useTransition()
@@ -77,7 +78,7 @@ const ReplyDialog = ({tweet:data}: ReplyDialogProps) => {
                   reply({
                     replyText,
                     tweetId:tweetDetails.id,
-                    userId:userProfile.id
+                    userId
                   }).then(() => {
                     toast.success("Reply send successfully")
                     setIsDialogOpen(false)
